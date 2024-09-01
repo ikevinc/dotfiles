@@ -1,0 +1,31 @@
+{{ if eq .chezmoi.os "linux" -}}
+#!/bin/bash
+
+# Update package list
+sudo apt-get update
+
+# Install packages via apt
+sudo apt-get install -y \
+{{- range .packages.wsl.apt }}
+{{ . | quote }} \
+{{- end }}
+
+# Add HashiCorp GPG key and repository if terraform is listed
+if [[ " {{- range .packages.wsl.apt }}{{ . }} " =~ " terraform " ]]; then
+  curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+  sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+  sudo apt-get update
+  sudo apt-get install -y terraform
+fi
+
+# Install 1Password CLI
+curl -sS -o 1password-cli.deb https://cache.agilebits.com/dist/1P/op/pkg/v2.16.0/op_linux_amd64_v2.16.0.deb
+sudo dpkg -i 1password-cli.deb
+sudo apt-get install -f
+
+# Install Terragrunt
+curl -Lo terragrunt https://github.com/gruntwork-io/terragrunt/releases/latest/download/terragrunt_linux_amd64
+chmod +x terragrunt
+sudo mv terragrunt /usr/local/bin/
+
+{{ end -}}

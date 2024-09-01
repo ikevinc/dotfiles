@@ -1,0 +1,16 @@
+packages:
+  wsl:
+    apt:
+    - 'ansible'
+    - 'awscli'
+    - 'git'
+    - 'golang-go'
+    - 'gnupg'
+    - 'kubectl'
+    - 'python3'
+    - 'tree'
+    - 'virtualenv'
+    - 'wget'
+    - 'yamllint'
+    - 'yarn'
+    - 'terraform'
