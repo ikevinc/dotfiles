@@ -10,25 +10,25 @@ OP_ACCOUNT_URL="https://my.1password.com"
 install_1password_on_linux() {
     echo "Installing 1Password CLI on Linux..."
 
-    # Import GPG key and set up the repository
-    curl -sS https://downloads.1password.com/linux/keys/1password.asc | \
-    gpg --dearmor --output /usr/share/keyrings/1password-archive-keyring.gpg
+    # Use sudo for commands that require root access
+    sudo curl -sS https://downloads.1password.com/linux/keys/1password.asc | \
+    sudo gpg --dearmor --output /usr/share/keyrings/1password-archive-keyring.gpg
 
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/1password-archive-keyring.gpg] \
     https://downloads.1password.com/linux/debian/$(dpkg --print-architecture) stable main" | \
-    tee /etc/apt/sources.list.d/1password.list
+    sudo tee /etc/apt/sources.list.d/1password.list
 
     # Set up debsig policy and keyrings
-    mkdir -p /etc/debsig/policies/AC2D62742012EA22/ /usr/share/debsig/keyrings/AC2D62742012EA22
+    sudo mkdir -p /etc/debsig/policies/AC2D62742012EA22/ /usr/share/debsig/keyrings/AC2D62742012EA22
 
-    curl -sS https://downloads.1password.com/linux/debian/debsig/1password.pol | \
-    tee /etc/debsig/policies/AC2D62742012EA22/1password.pol
+    sudo curl -sS https://downloads.1password.com/linux/debian/debsig/1password.pol | \
+    sudo tee /etc/debsig/policies/AC2D62742012EA22/1password.pol
 
-    curl -sS https://downloads.1password.com/linux/keys/1password.asc | \
-    gpg --dearmor --output /usr/share/debsig/keyrings/AC2D62742012EA22/debsig.gpg
+    sudo curl -sS https://downloads.1password.com/linux/keys/1password.asc | \
+    sudo gpg --dearmor --output /usr/share/debsig/keyrings/AC2D62742012EA22/debsig.gpg
 
     # Update package list and install 1Password CLI
-    apt-get update && apt-get install -y 1password-cli
+    sudo apt-get update && sudo apt-get install -y 1password-cli
 
     # Ensure installation success
     if ! command -v op >/dev/null 2>&1; then
