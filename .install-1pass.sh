@@ -27,24 +27,37 @@ EOF
 OP_ACCOUNT_EMAIL="kevin.cao.me@gmail.com"
 OP_ACCOUNT_ADDRESS="my.1password.com"
 
-# Function to log into 1Password
-login_to_1password() {
+# Function to add the 1Password account
+add_1password_account() {
     # Prompt for secret key and password
     echo "Enter your 1Password secret key: "
     read OP_ACCOUNT_SECRET
     echo "Enter your 1Password password: "
     read OP_ACCOUNT_PASSWORD
 
-    # Add the 1Password account and log in, capturing the environment variables
-    eval $(echo "$OP_ACCOUNT_PASSWORD" | op account add --address "$OP_ACCOUNT_ADDRESS" --email "$OP_ACCOUNT_EMAIL" --secret-key "$OP_ACCOUNT_SECRET" --signin)
+    # Add the 1Password account
+    echo "$OP_ACCOUNT_PASSWORD" | op account add --address "$OP_ACCOUNT_ADDRESS" --email "$OP_ACCOUNT_EMAIL" --secret-key "$OP_ACCOUNT_SECRET"
 
     if [ $? -ne 0 ]; then
-        echo "1Password CLI login failed! Please check your credentials."
+        echo "1Password account addition failed! Please check your credentials."
+        exit 1
+    fi
+
+    echo "1Password account added successfully."
+}
+
+# Function to sign into 1Password
+sign_in_to_1password() {
+    eval $(op signin --account my)
+
+    if [ $? -ne 0 ]; then
+        echo "1Password CLI sign-in failed!"
         exit 1
     fi
 
     echo "1Password CLI logged in successfully."
 }
 
-# Run the login function
-login_to_1password
+# Add the account, then sign in
+add_1password_account
+sign_in_to_1password
