@@ -3,7 +3,7 @@
 # Exit immediately if 1Password is already installed and in $PATH
 type op >/dev/null 2>&1 && exit 0
 
-# Hardcoded 1Password email and account address
+# Hardcoded 1Password email and account address (using the default personal account address)
 OP_ACCOUNT_EMAIL="kevin.cao.me@gmail.com"
 OP_ACCOUNT_ADDRESS="my.1password.com"
 
@@ -41,7 +41,7 @@ login_to_1password() {
     read -sp "Enter your 1Password password: " OP_ACCOUNT_PASSWORD
     echo ""
 
-    # Sign in to 1Password CLI using --address instead of --url and --signin
+    # Sign in to 1Password CLI using the hardcoded email and address
     eval $(op account add --address "$OP_ACCOUNT_ADDRESS" --email "$OP_ACCOUNT_EMAIL" --secret-key "$OP_ACCOUNT_SECRET" --signin)
 
     if [ $? -ne 0 ]; then
