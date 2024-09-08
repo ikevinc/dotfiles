@@ -1,19 +1,19 @@
 [user]
-	email = kevin.cao.me@gmail.com
-	name = ikevinc
+  email = kevin.cao.me@gmail.com
+  name = ikevinc
 [push]
-	autoSetupRemote = true
+  autoSetupRemote = true
 [core]
-	editor = code --wait
+  editor = code --wait
 [merge]
-	conflictStyle = zdiff3
+  conflictStyle = zdiff3
 [diff]
-	algorithm = histogram
+  algorithm = histogram
   tool = vscode
 [difftool "vscode"]
   cmd = code --wait --diff $LOCAL $REMOTE
 [branch]
-	sort = -committerdate
+  sort = -committerdate
 [rebase]
   autosquash = true
   updateRefs = true

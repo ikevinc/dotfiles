@@ -9,8 +9,11 @@ sudo apt install -y \
     zsh \
     neofetch \
     jq \ 
-    unzip
-sudo chsh -s $(which zsh) $(whoami)
+    unzip \ 
+    tree \ 
+    gnupg2 \
+    yamllint \ 
+    golang
 
 #Python
 
@@ -26,5 +29,30 @@ curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip
 unzip -o awscliv2.zip
 sudo ./aws/install --update
 rm -rf aws/ awscliv2.zip
+
+# Add the Terramate repo to your sources
+echo "deb [trusted=yes] https://repo.terramate.io/apt/ /" \
+  | sudo tee /etc/apt/sources.list.d/terramate.list
+
+# Update package lists and install Terramate
+sudo apt update
+sudo apt install -y terramate
+
+# Install OpenTofu
+sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://get.opentofu.org/opentofu.gpg | sudo tee /etc/apt/keyrings/opentofu.gpg >/dev/null
+curl -fsSL https://packages.opentofu.org/opentofu/tofu/gpgkey | sudo gpg --no-tty --batch --dearmor -o /etc/apt/keyrings/opentofu-repo.gpg >/dev/null
+sudo chmod a+r /etc/apt/keyrings/opentofu.gpg /etc/apt/keyrings/opentofu-repo.gpg
+
+# Add OpenTofu repository to sources list
+echo \
+  "deb [signed-by=/etc/apt/keyrings/opentofu.gpg,/etc/apt/keyrings/opentofu-repo.gpg] https://packages.opentofu.org/opentofu/tofu/any/ any main
+deb-src [signed-by=/etc/apt/keyrings/opentofu.gpg,/etc/apt/keyrings/opentofu-repo.gpg] https://packages.opentofu.org/opentofu/tofu/any/ any main" | \
+  sudo tee /etc/apt/sources.list.d/opentofu.list > /dev/null
+sudo chmod a+r /etc/apt/sources.list.d/opentofu.list
+
+# Update package lists and install OpenTofu
+sudo apt-get update
+sudo apt-get install -y tofu
 
 {{- end }}
