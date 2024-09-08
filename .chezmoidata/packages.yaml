@@ -1,6 +1,6 @@
 packages:
   wsl:
-    apps:
+    apt:
     - 'awscli'
     - 'go'
     - 'gnupg'
