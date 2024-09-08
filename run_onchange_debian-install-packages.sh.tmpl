@@ -1,13 +1,12 @@
 {{ if eq .chezmoi.os "linux" }}
 #!/bin/bash
 
-# Update package list
-sudo apt-get update
-
-# Install packages via apt
-sudo apt-get install -y \
-{{- range .packages.wsl.apt }}
-{{ . }} \
-{{- end }}
-
-{{ end }}
+brew bundle --no-lock --file=/dev/stdin <<EOF
+{{ range .packages.darwin.taps -}}
+tap {{ . | quote }}
+{{ end -}}
+{{ range .packages.darwin.brews -}}
+brew {{ . | quote }}
+{{ end -}}
+EOF
+{{ end -}}

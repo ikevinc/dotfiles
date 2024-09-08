@@ -1,17 +1,15 @@
 packages:
   wsl:
-    apt:
+    brews:
     - 'ansible'
     - 'awscli'
-    - 'git'
-    - 'golang-go'
+    - 'go'
     - 'gnupg'
-    - 'kubectl'
-    - 'python3'
+    - 'kubernetes-cli'
+    - 'opentofu'
     - 'tree'
-    - 'virtualenv'
     - 'wget'
     - 'yamllint'
     - 'yarn'
+    - 'terramate'
     - 'terraform'
-    - 'zsh'
