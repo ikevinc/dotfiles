@@ -1,17 +1,18 @@
-{{ if eq .chezmoi.os "linux" }}
+{{ if eq .chezmoi.os "linux" -}}
 #!/bin/bash
 
 # Update package list
 sudo apt-get update
 
 # Install packages via apt
-sudo apt-get install -y \
-{{- range .packages.wsl.apt }}
-{{ . | quote }} \
-{{- end }}
+sudo apt-get install -y <<EOF
+{{ range .packages.wsl.apt -}}
+{{ . | quote }}
+{{ end -}}
+EOF
 
 # Add HashiCorp GPG key and repository if terraform is listed
-if [[ " {{- range .packages.wsl.apt }}{{ . }} " =~ " terraform " ]]; then
+if dpkg-query -W terraform >/dev/null 2>&1; then
   curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
   sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
   sudo apt-get update
