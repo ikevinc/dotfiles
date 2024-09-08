@@ -9,11 +9,11 @@
 	conflictStyle = zdiff3
 [diff]
 	algorithm = histogram
-    tool = vscode
+  tool = vscode
 [difftool "vscode"]
-    cmd = code --wait --diff $LOCAL $REMOTE
+  cmd = code --wait --diff $LOCAL $REMOTE
 [branch]
 	sort = -committerdate
 [rebase]
-    autosquash = true
-    updateRefs = true
+  autosquash = true
+  updateRefs = true
