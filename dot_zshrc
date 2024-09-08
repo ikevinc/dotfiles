@@ -95,6 +95,10 @@ source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
+export PATH="$HOME/bin:$PATH"             # Custom user scripts
+export PATH="$HOME/.local/bin:$PATH"      # Python tools
+export PATH="$HOME/go/bin:$PATH"          # Go binaries
+export PATH="/usr/local/bin:$PATH"        # General binaries (including Docker)
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
