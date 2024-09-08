@@ -10,6 +10,7 @@ OP_ACCOUNT_ADDRESS="my.1password.com"
 install_1password_on_linux() {
     echo "Installing 1Password CLI on Linux..."
 
+    # Use sudo only for commands requiring root privileges
     sudo curl -sS https://downloads.1password.com/linux/keys/1password.asc | \
     sudo gpg --dearmor --output /usr/share/keyrings/1password-archive-keyring.gpg
 
