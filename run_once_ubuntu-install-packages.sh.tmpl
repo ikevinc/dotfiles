@@ -1,4 +1,4 @@
-{{- if eq .chezmoi.os "linux" -}}
+{{ if eq .chezmoi.os "linux" -}}
 #!/bin/bash
 
 # Update package lists and install required packages
@@ -8,11 +8,11 @@ sudo apt update
 sudo apt install -y \
     zsh \
     neofetch \
-    jq \ 
-    unzip \ 
-    tree \ 
+    jq \
+    unzip \
+    tree \
     gnupg2 \
-    yamllint \ 
+    yamllint \
     golang
 
 #Python virtual env
