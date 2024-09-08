@@ -1,7 +1,4 @@
 {{- $email := promptStringOnce . "email" "Email address" -}}
 
-[hooks.read-source-state.pre]
-    command = ".local/share/chezmoi/.install-1pass.sh"
-
 [data]
     email = {{ $email | quote }}
