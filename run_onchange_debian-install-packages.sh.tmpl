@@ -10,23 +10,4 @@ sudo apt-get install -y <<EOF
 {{ . | quote }}
 {{ end -}}
 EOF
-
-# Add HashiCorp GPG key and repository if terraform is listed
-if dpkg-query -W terraform >/dev/null 2>&1; then
-  curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
-  sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
-  sudo apt-get update
-  sudo apt-get install -y terraform
-fi
-
-# Install Terragrunt
-curl -Lo terragrunt https://github.com/gruntwork-io/terragrunt/releases/latest/download/terragrunt_linux_amd64
-chmod +x terragrunt
-sudo mv terragrunt /usr/local/bin/
-
-# Add the Terramate repo to your sources
-echo "deb [trusted=yes] https://repo.terramate.io/apt/ /" | sudo tee /etc/apt/sources.list.d/terramate.list
-sudo apt-get update
-sudo apt-get install -y terramate
-
-{{ end }}
+{{ end -}}
