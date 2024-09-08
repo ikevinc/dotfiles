@@ -30,12 +30,13 @@ OP_ACCOUNT_ADDRESS="my.1password.com"
 # Function to log into 1Password
 login_to_1password() {
     # Prompt for secret key and password
-    read -p "Enter your 1Password secret key: " OP_ACCOUNT_SECRET
-    read -sp "Enter your 1Password password: " OP_ACCOUNT_PASSWORD
-    echo ""
+    echo "Enter your 1Password secret key: "
+    read OP_ACCOUNT_SECRET
+    echo "Enter your 1Password password: "
+    read OP_ACCOUNT_PASSWORD
 
     # Sign in to 1Password CLI using the provided secret key and password
-    eval $(echo "$OP_ACCOUNT_PASSWORD" | op account add --address "$OP_ACCOUNT_ADDRESS" --email "$OP_ACCOUNT_EMAIL" --secret-key "$OP_ACCOUNT_SECRET" --signin)
+    echo "$OP_ACCOUNT_PASSWORD" | op account add --address "$OP_ACCOUNT_ADDRESS" --email "$OP_ACCOUNT_EMAIL" --secret-key "$OP_ACCOUNT_SECRET" --signin
 
     if [ $? -ne 0 ]; then
         echo "1Password CLI login failed! Please check your credentials."
