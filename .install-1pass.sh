@@ -23,7 +23,27 @@ curl -sS https://downloads.1password.com/linux/keys/1password.asc | gpg --dearmo
 apt update && apt install 1password-cli -y
 EOF
 
-# Log in to 1Password after installation
-# Email: kevin.cao.me@gmail.com
-# Sign-in address: my.1password.com
-eval $(op signin my.1password.com kevin.cao.me@gmail.com)
+# Hardcoded 1Password email and sign-in address
+OP_ACCOUNT_EMAIL="kevin.cao.me@gmail.com"
+OP_ACCOUNT_ADDRESS="my.1password.com"
+
+# Function to log into 1Password
+login_to_1password() {
+    # Prompt for secret key and password
+    read -p "Enter your 1Password secret key: " OP_ACCOUNT_SECRET
+    read -sp "Enter your 1Password password: " OP_ACCOUNT_PASSWORD
+    echo ""
+
+    # Sign in to 1Password CLI using the provided secret key and password
+    eval $(echo "$OP_ACCOUNT_PASSWORD" | op account add --address "$OP_ACCOUNT_ADDRESS" --email "$OP_ACCOUNT_EMAIL" --secret-key "$OP_ACCOUNT_SECRET" --signin)
+
+    if [ $? -ne 0 ]; then
+        echo "1Password CLI login failed! Please check your credentials."
+        exit 1
+    fi
+
+    echo "1Password CLI logged in successfully."
+}
+
+# Run the login function
+login_to_1password
