@@ -1,0 +1,26 @@
+{{- if eq .chezmoi.os "linux" -}}
+#!/bin/bash
+
+# Install ZSH and common
+sudo apt install -y \
+    zsh \
+    neofetch \
+    jq
+sudo chsh -s $(which zsh) $(whoami)
+
+#Python
+
+sudo apt install -y python
+sudo apt update 
+sudo apt install python3-venv -y
+
+# Ansible
+sudo apt install -y ansible
+
+# AWS CLI
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip -o awscliv2.zip
+sudo ./aws/install --update
+rm -rf aws/ awscliv2.zip
+
+{{- end }}
