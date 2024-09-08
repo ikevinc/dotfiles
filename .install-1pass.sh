@@ -35,8 +35,8 @@ add_1password_account() {
     echo "Enter your 1Password password: "
     read OP_ACCOUNT_PASSWORD
 
-    # Add the 1Password account
-    echo "$OP_ACCOUNT_PASSWORD" | op account add --address "$OP_ACCOUNT_ADDRESS" --email "$OP_ACCOUNT_EMAIL" --secret-key "$OP_ACCOUNT_SECRET"
+    # Add the 1Password account (interactive)
+    op account add --address "$OP_ACCOUNT_ADDRESS" --email "$OP_ACCOUNT_EMAIL" --secret-key "$OP_ACCOUNT_SECRET"
 
     if [ $? -ne 0 ]; then
         echo "1Password account addition failed! Please check your credentials."
