@@ -1,4 +1,4 @@
-{{ if eq .chezmoi.os "linux" -}}
+{{ if eq .chezmoi.os "linux" }}
 #!/bin/bash
 
 # Update package list
@@ -33,4 +33,4 @@ echo "deb [trusted=yes] https://repo.terramate.io/apt/ /" | sudo tee /etc/apt/so
 sudo apt-get update
 sudo apt-get install -y terramate
 
-{{ end -}}
+{{ end }}
