@@ -1,6 +1,9 @@
 {{- if eq .chezmoi.os "linux" -}}
 #!/bin/bash
 
+# Update package lists and install required packages
+sudo apt update
+
 # Install ZSH and common
 sudo apt install -y \
     zsh \

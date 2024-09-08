@@ -35,8 +35,8 @@ login_to_1password() {
     echo "Enter your 1Password password: "
     read OP_ACCOUNT_PASSWORD
 
-    # Sign in to 1Password CLI using the provided secret key and password
-    echo "$OP_ACCOUNT_PASSWORD" | op account add --address "$OP_ACCOUNT_ADDRESS" --email "$OP_ACCOUNT_EMAIL" --secret-key "$OP_ACCOUNT_SECRET" --signin
+    # Add the 1Password account and log in, capturing the environment variables
+    eval $(echo "$OP_ACCOUNT_PASSWORD" | op account add --address "$OP_ACCOUNT_ADDRESS" --email "$OP_ACCOUNT_EMAIL" --secret-key "$OP_ACCOUNT_SECRET" --signin)
 
     if [ $? -ne 0 ]; then
         echo "1Password CLI login failed! Please check your credentials."
