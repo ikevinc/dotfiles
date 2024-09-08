@@ -1,4 +1,4 @@
-#!/bin/bash  # Use bash for read -s support
+#!/bin/bash
 
 # Exit immediately if 1Password is already installed and in $PATH
 type op >/dev/null 2>&1 && exit 0
