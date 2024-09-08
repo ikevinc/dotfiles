@@ -1,13 +1,13 @@
-{{ if eq .chezmoi.os "linux" -}}
+{{ if eq .chezmoi.os "linux" }}
 #!/bin/bash
 
 # Update package list
 sudo apt-get update
 
 # Install packages via apt
-sudo apt-get install -y <<EOF
-{{ range .packages.wsl.apt -}}
-{{ . | quote }}
-{{ end -}}
-EOF
-{{ end -}}
+sudo apt-get install -y \
+{{- range .packages.wsl.apt }}
+{{ . }} \
+{{- end }}
+
+{{ end }}
