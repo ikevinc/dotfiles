@@ -1,7 +1,6 @@
 packages:
   wsl:
-    brews:
-    - 'ansible'
+    apps:
     - 'awscli'
     - 'go'
     - 'gnupg'

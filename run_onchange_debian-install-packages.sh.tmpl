@@ -1,9 +1,11 @@
 {{ if eq .chezmoi.os "linux" -}}
 #!/bin/sh
 
-brew bundle --no-lock --file=/dev/stdin <<EOF
-{{ range .packages.wsl.brews -}}
-brew {{ . | quote }}
+# Run apt-get install with packages provided by Go templating
+sudo apt-get update && sudo apt-get install -y $(cat <<EOF
+{{ range .packages.wsl.apt -}}
+{{ . | quote }}
 {{ end -}}
 EOF
-{{ end -}}
+)
+{{ end }}
